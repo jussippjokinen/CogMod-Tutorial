@@ -11,9 +11,9 @@ importlib.reload(driver_agent_physics)
 importlib.reload(physics_env)
 importlib.reload(animate_trace)
 
-def make_agent(sigma = 0, iters = 10):
+def make_agent(sigma = 0, iters = 10, collision_reward = -10):
     e = physics_env.physics_env()
-    agent = driver_agent_physics.driver_agent_physics(e, observation_var = sigma)
+    agent = driver_agent_physics.driver_agent_physics(e, observation_var = sigma, collision_reward = collision_reward)
     agent.max_distance = 30
     agent.penalty_per_tick = 0.1
     e.veh1_straight_start_y_range = [-25,-2]
