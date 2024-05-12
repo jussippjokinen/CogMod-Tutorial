@@ -8,7 +8,7 @@ import numpy as np
 import math
 
 class driver_agent_physics(Env):
-    def __init__(self, physics_env, goal_reward = 1, collision_reward = -1, observation_var = 0):
+    def __init__(self, physics_env, goal_reward = 10, collision_reward = -10, observation_var = 0):
         self.env = physics_env
 
         self.goal_reward = goal_reward
@@ -70,11 +70,11 @@ class driver_agent_physics(Env):
             # break if nothing ever happens
             if self.ticks > self.max_ticks:
                 #print("Too many ticks")
-                self.reward = -10
+                self.reward = self.collision_reward
                 self.done = True
                 trunc = True
             if self.env.get_distance() > self.max_distance:
-                self.reward = -10
+                self.reward = self.collision_reward
                 self.done = True                
         # action: go
         if action == 1:
@@ -85,9 +85,9 @@ class driver_agent_physics(Env):
             self.done = True
             self.collision, _ = self.env.simulate_go()
             if self.collision:
-                self.reward = -10
+                self.reward = self.collision_reward
             else:
-                self.reward = 10 - self.penalty_per_tick * self.ticks
+                self.reward = self.goal_reward - self.penalty_per_tick * self.ticks
 
         self.belief = self.get_belief()
 
