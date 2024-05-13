@@ -35,8 +35,8 @@ class driver_agent_physics(Env):
         self.observation_var = observation_var
 
         self.agent = PPO("MultiInputPolicy", self, device = 'cuda',
-                         learning_rate=0.00025,
-                         ent_coef=0.01,
+                         # learning_rate=0.00025,
+                         # ent_coef=0.01,
                          # n_steps = 128,
                          # batch_size = 64,
                          verbose = 0)
